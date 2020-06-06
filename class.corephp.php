@@ -109,5 +109,41 @@ class Cars {
         $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
         return substr(str_shuffle($str_result), 0, $length_of_string);
     }
+
+    /**
+     * 
+     * This function is used to check if car is available in parking lot or not
+     */
+    protected function isAvailable($carNumber) {
+        $isAvail = 0;
+        $this->readFile();
+        if (isset($this->fileContent->parking_slot)) {
+            $addedCars = $this->fileContent->parking_slot;
+            $isAvail = $this->searchForNumber($carNumber, $addedCars, "number");
+        }
+        return $isAvail;
+    }
+
+    /**
+     * 
+     * This function is used to check if the given slot is free or not
+     */
+    protected function isAvailableSlot($requiredSlot) {
+        $isAvail = 0;
+        $this->readFile();
+        if (isset($this->fileContent->parking_slot)) {
+            $addedCars = $this->fileContent->parking_slot;
+            $isAvail = $this->searchForNumber($requiredSlot, $addedCars, "slot");
+        }
+        return $isAvail;
+    }
+
+    /**
+     * 
+     * This function is used to search from the multidimensional array for given key value
+     */
+    private function searchForNumber($value, $array, $key) {
+        return count(array_keys(array_column($array, $key), $value));
+    }
 }
 ?>
