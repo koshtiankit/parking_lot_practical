@@ -33,7 +33,7 @@ switch (ACTION) {
             echo "Sorry, parking lot is full";
         }
     break;
-    
+
     case 'free_slot':
         $slot_to_free = $argv[2];
         $getIndex = $corephp->getCarIndex($slot_to_free, "slot");
@@ -46,6 +46,10 @@ switch (ACTION) {
                 echo "Please try after some time....";
             }
         }
+    break;
+
+    case 'show_status':
+        $getIndex = $corephp->getStatus();
     break;
     case 'destroy_session':
         $getIndex = $corephp->destroySession();
