@@ -1,10 +1,15 @@
 #!/bin/bash
 
-echo "Welcome to AK's automated parking lot"
+echo "Welcome to Ankit koshti's automated parking lot"
 echo "";
 
-SCRIPT=`realpath $0`
-SCRIPTPATH=`dirname $SCRIPT`
+show_error()
+{
+   error=$1;
+   echo "ERROR: $error";
+   echo;
+   exit 1;
+}
 
 choose_action()
 {
@@ -160,8 +165,5 @@ exit_session() {
 
 #choose action
 choose_action
-
-#create parking
-# create_parking
 
 cmd /k
