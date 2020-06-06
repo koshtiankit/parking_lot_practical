@@ -273,6 +273,63 @@ class corephp extends Cars {
     private static $instance = null;
 
     protected function __construct() {}
-}
+    public static function getInstance() {
+        if (self::$instance == null) {
+            self::$instance = new corephp();
+        }
+        return self::$instance;
+    }
+    
+    public function setCarDetail($color, $number, $slot) {
+        $this->setCar($color, $number, $slot);
+    }
+
+    public function getCarDetail() {
+        return $this->getCar();
+    }
+
+    public function isCarParked($carNumber) {
+        return $this->isAvailable($carNumber);
+    }
+
+    public function getParkedSlots() {
+        return $this->getParkedSlot();
+    }
+
+    public function getAvailableSlots() {
+        return $this->getAvailableSlot();
+    }
+
+    public function setTotalSlot($slot) {
+        $this->setSlot($slot);
+    }
+
+    public function getCarIndex($value, $key) {
+        return $this->findCarIndex((int)$value, $key);
+    }
+
+    public function freeParkingSlot($carIndex) {
+        return $this->releaseParkingSlot($carIndex);
+    }
+
+    public function isFreeSlot($reqSlot) {
+        return $this->isAvailableSlot($reqSlot);
+    }
+
+    public function getTotalParkingLot() {
+        return $this->getSlot();
+    }
+
+    public function getStatus() {
+        return $this->getCarStatus();
+    }
+
+    public function getSearchData($findValue, $conditionField, $value) {
+        return $this->getSearchResult($findValue, $conditionField, strtolower($value));
+    }
+
+    public function destroySession() {
+        unlink(FILE_NAME);
+    }
 }
 ?>
