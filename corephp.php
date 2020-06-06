@@ -51,6 +51,13 @@ switch (ACTION) {
     case 'show_status':
         $getIndex = $corephp->getStatus();
     break;
+
+    case 'search_reg_color':
+        $carColor = $argv[2];
+        $searchResult = $corephp->getSearchData("number", "color", $carColor);
+        echo $searchResult;
+    break;
+    
     case 'destroy_session':
         $getIndex = $corephp->destroySession();
     break;
