@@ -73,5 +73,32 @@ class Cars {
         }
         return $total_slot;
     }
+
+    /**
+     * 
+     * This function is used to set the car details in session
+     */
+    protected function setCar($color, $number, $slot) {
+        $this->car["color"] = $color;
+        $this->car["number"] = $number;
+        $this->car["slot"] = $slot;
+        $this->car["id"] = $this->randomStrings(5);
+        $parkSlots = isset($this->fileContent->parking_slot) ? $this->fileContent->parking_slot : [];
+        array_push($parkSlots, $this->car);
+        $this->readFile();
+        if (isset($this->fileContent->total_slot)) {
+            $total_slot = $this->fileContent->total_slot;
+            $this->writeFile($total_slot, "total_slot");
+        }
+        $this->writeFile($parkSlots, "parking_slot");
+    }
+
+    /**
+     * 
+     * This function is used to get the car object
+     */
+    public function getCar() {
+        return $this->car;
+    }
 }
 ?>
