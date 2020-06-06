@@ -177,5 +177,97 @@ class Cars {
         }
         return $freeSlots;
     }
+
+    /**
+     * 
+     * This function is used to get the index of the car in array
+     */
+    protected function findCarIndex($value, $key) {
+        $isAvail = -1;
+        $this->readFile();
+        if (isset($this->fileContent->parking_slot)) {
+            $addedCars = $this->fileContent->parking_slot;
+            $checkIndex = $this->getIndex($addedCars, $key, $value);
+            if ($checkIndex !== false) {
+                $isAvail = $checkIndex;
+            }
+        }
+        return $isAvail;
+    }
+
+    /**
+     * 
+     * This function is used to find the index from array
+     */
+    private function getIndex($array, $field, $value) {
+        $array = json_decode(json_encode($array), true);
+        var_dump($array);
+       foreach ($array as $key => $arr) {
+            if ($arr[$field] === $value) {
+                return $key;
+            }
+        }
+        return false;
+    }
+
+    private function getAllIndex($array, $value, $field, $findValue) {
+        $array = json_decode(json_encode($array), true);
+        $tempArr = [];
+       foreach ($array as $key => $arr) {
+            if (strtolower($arr[$field]) === $value) {
+                array_push($tempArr, $arr[$findValue]);
+            }
+        }
+        return $tempArr;
+    }
+
+    /**
+     * 
+     * This function is used to release the booked parking slot
+     */
+    protected function releaseParkingSlot($carIndex) {
+        $deleted = false;
+        $this->readFile();
+        if (isset($this->fileContent->parking_slot)) {
+            $pSlot = json_decode(json_encode($this->fileContent->parking_slot), true);
+            array_splice($pSlot, $carIndex, 1);
+            $deleted = true;
+            if (isset($this->fileContent->total_slot)) {
+                $total_slot = $this->fileContent->total_slot;
+                $this->writeFile($total_slot, "total_slot");
+            }
+            $this->writeFile($pSlot, "parking_slot");
+        }
+        return $deleted;
+    }
+
+    public function getCarStatus() {
+        $row_data = "Parking lot is free";
+        $this->readFile();
+        if (isset($this->fileContent->parking_slot)) {
+            $cars_details = $this->fileContent->parking_slot;
+            $row_data = "";
+            echo "Slot No.    Registration No.    Color\n";
+            for($i = 0; $i < count($cars_details); $i++) {
+                echo $cars_details[$i]->slot . "            " . $cars_details[$i]->number . "      " . $cars_details[$i]->color."\r\n";
+            }
+        }
+        return $row_data;
+    }
+
+    public function getSearchResult($findValue, $conditionField, $value) {
+        $this->readFile();
+        if (isset($this->fileContent->parking_slot)) {
+            $array = $this->fileContent->parking_slot;
+        }
+        $searchResult = "Not found";
+        $getResult = $this->getAllIndex($array, $value, $conditionField, $findValue);
+        if (count($getResult) > 0) {
+            $searchResult = implode(",", $getResult);
+        }
+        return $searchResult;
+    }
+}
+
 }
 ?>
