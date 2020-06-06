@@ -48,5 +48,30 @@ class Cars {
             echo "Please start with step number 1";
         }
     }
+
+    /**
+     * 
+     * This function is used to set the total number of parking slots
+     */
+    protected function setSlot($slot) {
+        $this->totalSlots = $slot;
+        $myfile = fopen(FILE_NAME, "w") or die("Unable to open file!");
+        fclose($myfile);
+        $this->writeFile($slot, "total_slot");
+        $this->writeFile([], "parking_slot");
+    }
+    
+    /**
+     * 
+     * This function is used to get the total number of parking slots
+     */
+    public function getSlot() {
+        $total_slot = 0;
+        $this->readFile();
+        if (isset($this->fileContent->total_slot)) {
+            $total_slot = $this->fileContent->total_slot;
+        }
+        return $total_slot;
+    }
 }
 ?>
