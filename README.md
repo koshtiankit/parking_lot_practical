@@ -10,9 +10,9 @@ $ clone this repository
 ```
 ### How to run
 ```sh
-$ Windows machine: double click on the run.sh file
-$ Ubuntu machine: type run.sh and press enter (need to be in root folder where sh file located).
-$ MacOs: type run.sh and press enter (need to be in root folder where sh file located)
+$ Windows machine: double click on the bin/parking_plot.sh file
+$ Ubuntu machine: type bin/parking_plot.sh and press enter (need to be in root folder where sh file located).
+$ MacOs: type bin/parking_plot.sh and press enter (need to be in root folder where sh file located)
 ```
 
 ### Todos
