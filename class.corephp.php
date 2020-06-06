@@ -268,6 +268,11 @@ class Cars {
         return $searchResult;
     }
 }
+class corephp extends Cars {
 
+    private static $instance = null;
+
+    protected function __construct() {}
+}
 }
 ?>
