@@ -145,5 +145,37 @@ class Cars {
     private function searchForNumber($value, $array, $key) {
         return count(array_keys(array_column($array, $key), $value));
     }
+
+    /**
+     * 
+     * This function is used to get the booked parking slots
+     */
+    protected function getParkedSlot() {
+        $parkedSlot = [];
+        $this->readFile();
+        if (isset($this->fileContent->parking_slot)) {
+            $slotArray = $this->fileContent->parking_slot;
+            $parkedSlot = array_column($slotArray, "slot");
+            sort($parkedSlot);
+        }
+        return $parkedSlot;
+    }
+
+    /**
+     * 
+     * This function is used to get the available free slots
+     * Response Array
+     */
+    protected function getAvailableSlot() {
+        $parkedSlots = $this->getParkedSlot();
+        $totalSlot = $this->getSlot();
+        $freeSlots = [];
+        for($i = 1; $i <= $totalSlot; $i++) {
+            if (!in_array($i, $parkedSlots)) {
+                array_push($freeSlots, $i);
+            }
+        }
+        return $freeSlots;
+    }
 }
 ?>
