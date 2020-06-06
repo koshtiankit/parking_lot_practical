@@ -57,7 +57,19 @@ switch (ACTION) {
         $searchResult = $corephp->getSearchData("number", "color", $carColor);
         echo $searchResult;
     break;
-    
+
+    case 'search_slot_color':
+        $carColor = $argv[2];
+        $searchResult = $corephp->getSearchData("slot", "color", $carColor);
+        echo $searchResult;
+    break;
+
+    case 'search_slot_reg':
+        $carNumber = $argv[2];
+        $searchResult = $corephp->getSearchData("slot", "number", $carNumber);
+        echo $searchResult;
+    break;
+
     case 'destroy_session':
         $getIndex = $corephp->destroySession();
     break;
