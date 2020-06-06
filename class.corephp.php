@@ -100,5 +100,14 @@ class Cars {
     public function getCar() {
         return $this->car;
     }
+
+    /**
+     * 
+     * This function is used to generate the random alphanumeric string
+     */
+    function randomStrings($length_of_string) {
+        $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        return substr(str_shuffle($str_result), 0, $length_of_string);
+    }
 }
 ?>
